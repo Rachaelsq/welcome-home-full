@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+
+<!-- 
+# =============================
+USER LOGIN HEADER
+#============================== 
+-->
+    <hr> 
+    {% if request.user.is_authenticated %}
+    <h1>Welcome {{request.user}}  - Your To-Do List</h1>
+    <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+    <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+
+<!-- 
+# =============================
+SEARCH
+#============================== 
+-->
+<form method="GET" style="display: flex;">
+    <input type='text' name='search-area' placeholder="Search For a Journal" value="{{search_input}}">
+    <input class="button" type="submit" value='Search'>
+</form>
+{% if journals|length > 0 %}
+<!-- <a id="add-link" href="{% url 'task-create' %}">&#x2b;</a>-->
+{% endif %}
+
+<!--     
+# =============================
+TO DO LIST TASK TABLE
+#============================== 
+-->
+<h3> <a href="{% url 'journal-create' %}">Write a new journal</a> </h3>
+
+    <table>
+        <tr>
+            <th>Item</th>
+        </tr>
+
+        {% for journal in journals %}
+
+        <tr>
+            <td>{{journal.title}}</td>
+            <td><a href="{% url 'journal' journal.id %}">Details</a></td>
+            <td><a href="{% url 'journal-update' journal.id %}">Edit</a></td>
+            <td><a href="{% url 'journal-delete' journal.id %}">Delete</a></td>
+        </tr>
+
+        {% empty %}
+        <p>no items</p>
+        {% endfor %}
+
+    </table>
+<!-- 
+# =============================
+END OF TABLE
+#============================== 
+-->
+</body>
+</html>

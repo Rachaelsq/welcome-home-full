@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+    <h1>Register</h1>
+    <!-- custom FormView -->
+        <form method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Register">
+        </form>
+        <p>    Already have an account? </p>
+        <button><a href="">Login</a> </button> 
+</body>
+</html>
